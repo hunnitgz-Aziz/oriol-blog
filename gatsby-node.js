@@ -6,6 +6,8 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
   // Define a template for blog post
   const blogPost = path.resolve('./src/templates/blog-post.js')
 
+  const tagIndex = path.resolve('./src/templates/tags-page.js')
+
   const result = await graphql(
     `
       {
@@ -13,6 +15,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
           nodes {
             title
             slug
+            tags
           }
         }
       }
@@ -40,7 +43,7 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         index === posts.length - 1 ? null : posts[index + 1].slug
 
       createPage({
-        path: `/blog/${post.slug}/`,
+        path: `/article/${post.slug}/`,
         component: blogPost,
         context: {
           slug: post.slug,
@@ -50,4 +53,18 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
       })
     })
   }
+
+    // Extract tag data from query
+    const tags = result.data.allContentfulBlogPost.nodes
+    // Make tag pages
+    tags.forEach(tag => {
+      createPage({
+        path: `/topic/${tag.tags}/`,
+        component: tagIndex,
+        context: {
+          tag: tag.tags,
+        },
+      })
+    })
+  
 }

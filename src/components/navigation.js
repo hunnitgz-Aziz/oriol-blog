@@ -1,10 +1,12 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Link, graphql } from 'gatsby'
 
 import * as styles from './navigation.module.css'
 
-const Navigation = () => (
-  <nav role="navigation" className={styles.container} aria-label="Main">
+const Navigation = () => {
+
+  return (
+    <nav role="navigation" className={styles.container} aria-label="Main">
     <Link to="/" className={styles.logoLink}>
       <span className={styles.logo} />
       <span className={styles.navigationItem}>Gatsby Starter Contentful</span>
@@ -22,6 +24,33 @@ const Navigation = () => (
       </li>
     </ul>
   </nav>
-)
+  )
+}
 
 export default Navigation
+
+export const pageQuery = graphql`
+  query NavQuery {
+    allContentfulBlogPost {
+      edges {
+        node {
+          title
+          tags
+          slug
+          body {
+            body
+          }
+          description {
+            description
+          }
+          heroImage {
+            file {
+              url
+            }
+          }
+          featuredPost
+        }
+      }
+    }
+  }
+`
