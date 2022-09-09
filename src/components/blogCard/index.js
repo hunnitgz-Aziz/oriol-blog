@@ -5,7 +5,7 @@ import styled from "styled-components"
 const Container = styled.div`
   text-align: center;
 `
-const Title = styled.h4``
+const Title = styled.h3``
 const Description = styled.p``
 const Image = styled.img`
   width: 262px;

@@ -3,9 +3,20 @@ import { Link } from 'gatsby'
 import styled from 'styled-components';
 
 const Container = styled.div`
-  height: 60vh;
+  height: 100vh;
   overflow: hidden;
   position: relative;
+
+  &:after {
+    content: '';
+    background: rgba(0,0,0,0.2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
 `
 
 const Image = styled.img`
@@ -16,8 +27,9 @@ const Image = styled.img`
 
 const HeroInfo = styled.div`
   position: absolute;
-  bottom: 1rem;
-  left: 1rem;
+  bottom: 5rem;
+  left: 3rem;
+  z-index: 1;
 `
 
 const HeroTitle = styled.h1`
