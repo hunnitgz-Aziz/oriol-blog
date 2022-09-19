@@ -166,7 +166,7 @@ const RootIndex = ({ data }) => {
                 {latestPost.map(({node: post}) => (
                   <FeaturedList key={post.slug}>
                     <small>{post.tags}</small>
-                    <Link to={post.slug}><h3>{post.title}</h3></Link>
+                    <Link to={`/article/${post.slug}`}><h3>{post.title}</h3></Link>
                   </FeaturedList>
                 ))}
               </FeaturedContainer>
