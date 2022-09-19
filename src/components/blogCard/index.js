@@ -8,7 +8,7 @@ const Container = styled.div`
 const Title = styled.h3``
 const Description = styled.p``
 const Image = styled.img`
-  width: 262px;
+  max-width: 262px;
   height: 400px;
   object-fit: cover;
   margin: auto;

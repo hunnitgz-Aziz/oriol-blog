@@ -1,5 +1,5 @@
 import React from 'react'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import styled from 'styled-components'
 import Layout from '../components/layout'
 
@@ -15,7 +15,7 @@ const Section = styled.section`
 
 const Row = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 33.3333%);
   grid-column-gap: 1.5rem;
   padding-bottom: 3rem;
 
@@ -26,7 +26,7 @@ const Row = styled.div`
 
 const RowFour = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 23%);
   grid-column-gap: 1.5rem;
 
   @media (max-width: 767px) {
@@ -43,7 +43,48 @@ const Divider = styled.div`
   width: 100%;
   background: black;
 `
+const Sidebar = styled.aside`
+  width: 25%;
+  position: fixed;
+  right: 0;
+  top: 64px;
+  height: calc(100vh - 80px);
+  z-index: 100;
+  padding: 24px;
 
+  @media (max-width: 1199px) {
+    display: none;
+  }
+`
+
+const FeaturedContainer = styled.ul`
+  list-style-type: none;
+`
+
+const FeaturedList = styled.li`
+  margin-bottom: 2rem;
+`
+
+const SidebarInfo = styled.div``
+
+const InnerWrapper = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  align-content: space-between;
+  height: 100%;
+`
+
+const MainContent = styled.div`
+  margin-right: 25%;
+  border-right: 1px solid black;
+
+  @media (max-width: 1199px) {
+    border: none;
+    margin: 0;
+  }
+`
+
+const Wrapper = styled.section``
 
 const RootIndex = ({ data }) => {
   
@@ -61,61 +102,86 @@ const RootIndex = ({ data }) => {
 
     return (
       <Layout>
-        {oneHeroPost.map(({node: post}) => (
-          <HomeHero 
-            key={post.slug}
-            slug={post.slug}
-            title={post.title}
-            image={post.heroImage.file.url}
-          />
-        ))}
-        <Section>
-          <Header>Featured</Header>
-            <Row>
-            {latestPost.map(({node: post}) => (
-                <BlogCard
-                  key={post.slug}
-                  alignment={post.true}
-                  slug={post.slug} 
-                  title={post.title}
-                  tags={post.tags}
-                  description={post.description.description}
-                  image={post.heroImage.file.url}/>
+        <Wrapper>
+          <MainContent>
+              {oneHeroPost.map(({node: post}) => (
+              <HomeHero 
+                key={post.slug}
+                slug={post.slug}
+                title={post.title}
+                image={post.heroImage.file.url}
+              />
             ))}
-            </Row>
-            <Divider></Divider>
-        </Section>
-        <Section>
-          <Header>Diary</Header>
-          <Row>
-            {diaryPost.map(({node: post}) => (
-                <BlogCard
-                  key={post.slug}
-                  alignment={post.true}
-                  slug={post.slug} 
-                  title={post.title}
-                  tags={post.tags}
-                  description={post.description.description}
-                  image={post.heroImage.file.url}/>
-            ))}
-            </Row>
-            <Divider></Divider>
-        </Section>
-        <Section>
-          <Header>Vitners Arcade</Header>
-          <RowFour>
-            {winePost.map(({node: post}) => (
-                <BlogCard
-                  key={post.slug}
-                  alignment={post.true}
-                  slug={post.slug} 
-                  title={post.title}
-                  tags={post.tags}
-                  description={post.description.description}
-                  image={post.heroImage.file.url}/>
-            ))}
-            </RowFour>
-        </Section>
+            <Section>
+              <Header>Featured</Header>
+                <Row>
+                {latestPost.map(({node: post}) => (
+                    <BlogCard
+                      key={post.slug}
+                      alignment={post.true}
+                      slug={post.slug} 
+                      title={post.title}
+                      tags={post.tags}
+                      description={post.description.description}
+                      image={post.heroImage.file.url}/>
+                ))}
+                </Row>
+                <Divider></Divider>
+            </Section>
+            <Section>
+              <Header>Diary</Header>
+              <Row>
+                {diaryPost.map(({node: post}) => (
+                    <BlogCard
+                      key={post.slug}
+                      alignment={post.true}
+                      slug={post.slug} 
+                      title={post.title}
+                      tags={post.tags}
+                      description={post.description.description}
+                      image={post.heroImage.file.url}/>
+                ))}
+                </Row>
+                <Divider></Divider>
+            </Section>
+            <Section>
+              <Header>Vitners Arcade</Header>
+              <RowFour>
+                {winePost.map(({node: post}) => (
+                    <BlogCard
+                      key={post.slug}
+                      alignment={post.true}
+                      slug={post.slug} 
+                      title={post.title}
+                      tags={post.tags}
+                      description={post.description.description}
+                      image={post.heroImage.file.url}/>
+                ))}
+                </RowFour>
+            </Section>
+          </MainContent>
+          <Sidebar>
+            <InnerWrapper>
+              <FeaturedContainer>
+                {latestPost.map(({node: post}) => (
+                  <FeaturedList key={post.slug}>
+                    <small>{post.tags}</small>
+                    <Link to={post.slug}><h3>{post.title}</h3></Link>
+                  </FeaturedList>
+                ))}
+              </FeaturedContainer>
+              <SidebarInfo>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et interdum augue, eget iaculis nibh. Praesent dictum leo vel lorem efficitur rutrum</p>
+                <ul style={{listStyleType: "none", padding: 0}}>
+                  <li style={{ display: "inline-block", paddingRight: "0.5rem"}}><a><small>FW</small></a></li>
+                  <li style={{  display: "inline-block", paddingRight: "0.5rem"}}><a><small>TW</small></a></li>
+                  <li style={{  display: "inline-block", paddingRight: "0.5rem"}}><a><small>IG</small></a></li>
+                </ul>
+              </SidebarInfo>
+            </InnerWrapper>
+          </Sidebar>
+        </Wrapper>
+        
       </Layout>
     )
   
