@@ -5,7 +5,8 @@ import Layout from '../components/layout'
 
 import BlogCard from '../components/blogCard'
 import HomeHero from '../components/heroHeader'
-
+import FluidCard from '../components/fluidCard'
+import MiniCard from '../components/miniCard'
 
 const Section = styled.section`
   max-width: 1220px;
@@ -16,6 +17,17 @@ const Section = styled.section`
 const Row = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 33.3333%);
+  grid-column-gap: 1.5rem;
+  padding-bottom: 3rem;
+
+  @media (max-width: 767px) {
+    display: block;
+  }
+`
+
+const RowTwo = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
   grid-column-gap: 1.5rem;
   padding-bottom: 3rem;
 
@@ -95,10 +107,18 @@ const RootIndex = ({ data }) => {
   const oneHeroPost = [];
   const test = oneHeroPost.push(heroPost[0])
 
-  //
+  //Section Tag Fitler
   const latestPost = blogPosts.filter(post => post.node.tags[0] === 'latest')
   const diaryPost = blogPosts.filter(post => post.node.tags[0] === 'diary')
   const winePost = blogPosts.filter(post => post.node.tags[0] === 'vitners-arcade')
+
+
+  //Diary Post Filter
+  const firstDiaryPost = []
+  const pushDP = firstDiaryPost.push(diaryPost[0])
+  const subDiaryPost = diaryPost.slice(1,4)
+
+  console.log(subDiaryPost)
 
     return (
       <Layout>
@@ -130,19 +150,30 @@ const RootIndex = ({ data }) => {
             </Section>
             <Section>
               <Header>Diary</Header>
-              <Row>
-                {diaryPost.map(({node: post}) => (
-                    <BlogCard
+              <RowTwo>
+                <div>
+                  {firstDiaryPost.map(({node: post}) => (
+                    <FluidCard 
                       key={post.slug}
-                      alignment={post.true}
-                      slug={post.slug} 
+                      slug={post.slug}
                       title={post.title}
                       tags={post.tags}
                       description={post.description.description}
                       image={post.heroImage.file.url}/>
-                ))}
-                </Row>
-                <Divider></Divider>
+                  ))}
+                </div>
+                <div>
+                  {subDiaryPost.map(({node: post}) => (
+                    <MiniCard 
+                    key={post.slug}
+                    slug={post.slug}
+                    title={post.title}
+                    tags={post.tags}
+                    image={post.heroImage.file.url}/>
+                  ))}
+                </div>
+              </RowTwo>
+              <Divider></Divider>
             </Section>
             <Section>
               <Header>Vitners Arcade</Header>
