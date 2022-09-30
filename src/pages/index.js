@@ -110,7 +110,7 @@ const RootIndex = ({ data }) => {
   //Section Tag Fitler
   const latestPost = blogPosts.filter(post => post.node.tags[0] === 'latest')
   const diaryPost = blogPosts.filter(post => post.node.tags[0] === 'diary')
-  const winePost = blogPosts.filter(post => post.node.tags[0] === 'vitners-arcade')
+  const winePost = blogPosts.filter(post => post.node.tags[0] === 'vintners-arcade')
 
 
   //Diary Post Filter
@@ -176,7 +176,7 @@ const RootIndex = ({ data }) => {
               <Divider></Divider>
             </Section>
             <Section>
-              <Header>Vitners Arcade</Header>
+              <Header>Vintners Arcade</Header>
               <RowFour>
                 {winePost.map(({node: post}) => (
                     <BlogCard
